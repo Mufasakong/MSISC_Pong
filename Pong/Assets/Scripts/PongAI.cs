@@ -21,9 +21,14 @@ public class PongAI : MonoBehaviour
     [Tooltip("Distance at which the AI stops acting dumb and perfectly blocks the ball")]
     public float panicDistance = 4f;
 
+    [Header("Difficulty Progression")]
+    [Tooltip("How long (in seconds) it takes for the AI to reach its maximum difficulty. Good for eye-tracking users.")]
+    public float difficultyRampUpTime = 90f;
+
     private float currentTrackingError = 0f;
     private float freezeTimer = 0f;
     private float timePassedInRally = 0f;
+    private float totalTimePlayed = 0f;
 
     void Start()
     {
@@ -40,6 +45,10 @@ public class PongAI : MonoBehaviour
     {
         if (ball == null) return;
         
+        // Progressively scale overall difficulty based on total session time played
+        totalTimePlayed += Time.deltaTime;
+        float sessionDifficulty = Mathf.Clamp01(totalTimePlayed / difficultyRampUpTime);
+
         // Scale AI unfairness based on how long the rally is going
         timePassedInRally += Time.deltaTime;
         float unfairnessMultiplier = 1f + (timePassedInRally * 0.1f); // AI gets 10% more aggressive/glitchy every second
@@ -61,18 +70,23 @@ public class PongAI : MonoBehaviour
 
         // 2. Misaligned Tracking vs. Rubber-banding
         float targetY = ball.position.y;
-        float currentSpeed = baseSpeed;
+        
+        // Scale speeds so the AI is very slow and beatable initially
+        float currentSpeed = Mathf.Lerp(1.5f, baseSpeed, sessionDifficulty);
+        float currentPanicDistance = Mathf.Lerp(0f, panicDistance, sessionDifficulty);
 
-        if (distanceToBallX > panicDistance)
+        if (distanceToBallX > currentPanicDistance)
         {
             // When the ball is far, the AI tracks 'badly' (intentionally misaligned)
-            targetY += currentTrackingError;
+            // Make tracking errors worse early on to guarantee the player can score
+            targetY += currentTrackingError * Mathf.Lerp(2.5f, 1f, sessionDifficulty);
         }
         else
         {
             // 3. Unfair Recovery: When ball gets close, instantly correct the error and speed up
             // This frustrates the user because it looks like they had it, but the AI cheats at the last second
-            currentSpeed = catchUpSpeed * unfairnessMultiplier;
+            // Early on (sessionDifficulty near 0), it won't have the insane catch-up speed yet
+            currentSpeed = Mathf.Lerp(currentSpeed, catchUpSpeed * unfairnessMultiplier, sessionDifficulty);
         }
 
         // Move paddle towards the targetY
