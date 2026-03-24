@@ -15,7 +15,9 @@ public class EyeTrackerTest : MonoBehaviour
         if (gazePoint.IsValid)
         {
             // 3. Move the UI crosshair to your exact eye coordinates
-            crosshair.position = gazePoint.Screen;
+            Vector3 pos = crosshair.position;
+            pos.y = gazePoint.Screen.y;
+            crosshair.position = pos;
         }
     }
 }
