@@ -6,24 +6,24 @@ public class PongAI : MonoBehaviour
     public Transform ball;
 
     [Header("Movement Settings")]
-    public float baseSpeed = 5f;
+    public float baseSpeed = 7f;
     [Tooltip("Unfairly fast speed when the ball gets close")]
-    public float catchUpSpeed = 15f; 
+    public float catchUpSpeed = 18f; 
 
     [Header("Frustration Mechanics")]
     [Tooltip("Probability of the AI suddenly freezing for a moment")]
-    public float freezeProbability = 0.5f;
+    public float freezeProbability = 0.6f;
     [Tooltip("Maximum distance the AI will intentionally misjudge the ball")]
-    public float maxTrackingError = 2.0f;
+    public float maxTrackingError = 1.5f;
     [Tooltip("Amount of visual jitter/shaking to make movement feel unnatural")]
-    public float jitterAmount = 0.1f;
+    public float jitterAmount = 0.15f;
     
     [Tooltip("Distance at which the AI stops acting dumb and perfectly blocks the ball")]
-    public float panicDistance = 4f;
+    public float panicDistance = 6f;
 
     [Header("Difficulty Progression")]
     [Tooltip("How long (in seconds) it takes for the AI to reach its maximum difficulty. Good for eye-tracking users.")]
-    public float difficultyRampUpTime = 90f;
+    public float difficultyRampUpTime = 30f;
 
     private float currentTrackingError = 0f;
     private float freezeTimer = 0f;
