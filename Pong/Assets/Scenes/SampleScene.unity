@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4bc9f1fc0be7e4ebde12f9c7cb9b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LSLStreaming
-  streamType: HRV
+  streamType: BVP
 --- !u!1 &1731543511
 GameObject:
   m_ObjectHideFlags: 0
