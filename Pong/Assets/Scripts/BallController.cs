@@ -15,8 +15,8 @@ public class BallController : MonoBehaviour
     
     [Header("UI")]
     public Text scoreText; // Assign a UI Text element here
-    private int playerScore = 0;
-    private int aiScore = 0;
+    public int playerScore = 0;
+    public int aiScore = 0;
 
     private float currentSpeedMultiplier = 1f;
 
