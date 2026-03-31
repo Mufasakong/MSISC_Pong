@@ -445,6 +445,8 @@ MonoBehaviour:
   difficultyRampRate: 0.1
   xBoundary: 10
   scoreText: {fileID: 1731543512}
+  playerScore: 0
+  aiScore: 0
 --- !u!50 &590040431
 Rigidbody2D:
   serializedVersion: 5
@@ -1146,6 +1148,8 @@ GameObject:
   - component: {fileID: 1408682341}
   - component: {fileID: 1408682340}
   - component: {fileID: 1408682344}
+  - component: {fileID: 1408682345}
+  - component: {fileID: 1408682346}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1252,6 +1256,33 @@ MonoBehaviour:
   crosshair: {fileID: 870235352}
   smoothSpeed: 10
   yLimit: 4
+--- !u!114 &1408682345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408682339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954961ce95eb8a645a60faca1c67d929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  logsPerSecond: 30
+  ballController: {fileID: 590040430}
+--- !u!114 &1408682346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408682339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4bc9f1fc0be7e4ebde12f9c7cb9b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LSLStreaming
+  streamType: HRV
 --- !u!1 &1731543511
 GameObject:
   m_ObjectHideFlags: 0
