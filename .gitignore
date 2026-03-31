@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# LSL Recordings (large data files)
+LSL_Recording_*/
+*.csv
+*.xdf
+
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Unity eye tracking logs
+Pong/Assets/EyeData/
+Pong/Assets/HRVDATA/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Analysis outputs
+*.png
+*.jpg
+*.pdf
+timeline_plot.*
+
+# Keep example data (if you create one)
+!example_recording/

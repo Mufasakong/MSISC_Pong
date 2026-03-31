@@ -24,6 +24,12 @@ public class BallController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ResetBall();
+        
+        // Send game start marker
+        if (LSLEventMarker.Instance != null)
+        {
+            LSLEventMarker.Instance.SendMarker("GameStart");
+        }
     }
 
     void Update()
@@ -58,6 +64,19 @@ public class BallController : MonoBehaviour
         if (scoreText != null)
             scoreText.text = $"{playerScore} - {aiScore}";
 
+        // Send LSL event marker for score
+        if (LSLEventMarker.Instance != null)
+        {
+            if (playerScored)
+            {
+                LSLEventMarker.Instance.SendMarker("PlayerScore", playerScore);
+            }
+            else
+            {
+                LSLEventMarker.Instance.SendMarker("AIScore", aiScore);
+            }
+        }
+
         // Frustration mechanic strategy: We DON'T reset the speed multiplier if the AI scored!
         // We only reset it if the player scores, giving them false hope.
         if (playerScored)
@@ -77,6 +96,12 @@ public class BallController : MonoBehaviour
         float yDir = Random.Range(-0.8f, 0.8f);
         
         rb.linearVelocity = new Vector2(xDir, yDir).normalized * initialSpeed;
+        
+        // Send ball reset marker
+        if (LSLEventMarker.Instance != null)
+        {
+            LSLEventMarker.Instance.SendMarker("BallReset");
+        }
     }
     
     // Add a bit of randomness to bounces so the ball doesn't get stuck in a straight horizontal line
@@ -84,5 +109,11 @@ public class BallController : MonoBehaviour
     {
         Vector2 tweak = new Vector2(0f, Random.Range(-1f, 1f));
         rb.linearVelocity = (rb.linearVelocity + tweak).normalized * (initialSpeed * currentSpeedMultiplier);
+        
+        // Send paddle hit marker
+        if (LSLEventMarker.Instance != null)
+        {
+            LSLEventMarker.Instance.SendMarker($"BallHit_{collision.gameObject.name}");
+        }
     }
 }
