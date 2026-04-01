@@ -17,8 +17,12 @@ public class BallController : MonoBehaviour
     public Text scoreText; // Assign a UI Text element here
     public int playerScore = 0;
     public int aiScore = 0;
+    
+    [Header("Streak & Difficulty")]
+    public float paddleShrinkPerStreak = 0.05f; // How much paddle shrinks per streak point
 
     private float currentSpeedMultiplier = 1f;
+    private int playerStreak = 0;
 
     void Start()
     {
@@ -57,12 +61,31 @@ public class BallController : MonoBehaviour
     void Score(bool playerScored)
     {
         if (playerScored) 
+        {
             playerScore++;
+            playerStreak++;
+        }
         else 
+        {
             aiScore++;
+            playerStreak = 0; // Reset streak when AI scores
+        }
         
         if (scoreText != null)
             scoreText.text = $"{playerScore} - {aiScore}";
+
+        // Play sound effect for scoring
+        if (AudioManager.Instance != null)
+        {
+            if (playerScored)
+            {
+                AudioManager.Instance.PlayPlayerScoreSound();
+            }
+            else
+            {
+                AudioManager.Instance.PlayAIScoreSound();
+            }
+        }
 
         // Send LSL event marker for score
         if (LSLEventMarker.Instance != null)
@@ -85,6 +108,11 @@ public class BallController : MonoBehaviour
         }
 
         ResetBall();
+    }
+    
+    public int GetPlayerStreak()
+    {
+        return playerStreak;
     }
 
     void ResetBall()
@@ -109,6 +137,18 @@ public class BallController : MonoBehaviour
     {
         Vector2 tweak = new Vector2(0f, Random.Range(-1f, 1f));
         rb.linearVelocity = (rb.linearVelocity + tweak).normalized * (initialSpeed * currentSpeedMultiplier);
+        
+        // Play sound effect when ball hits paddle
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayBallHitSound();
+        }
+
+        // Play confetti/particle effect at collision point
+        if (ParticleEffectManager.Instance != null)
+        {
+            ParticleEffectManager.Instance.PlayConfetti(collision.contacts[0].point);
+        }
         
         // Send paddle hit marker
         if (LSLEventMarker.Instance != null)

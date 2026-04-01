@@ -119,6 +119,70 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &223241195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 223241198}
+  - component: {fileID: 223241197}
+  - component: {fileID: 223241196}
+  m_Layer: 0
+  m_Name: Game_Man
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &223241196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223241195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62eb0151409f534cba9184e9fb6fd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleEffectManager
+  confettiPrefab: {fileID: 0}
+  confettiParticleCount: 20
+  confettiSpeed: 10
+  confettiLifetime: 2
+--- !u!114 &223241197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223241195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c2d04d026fd7649adc63b0c115f906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  ballHitClip: {fileID: 8300000, guid: 0217c860368c6e2428acbbc6fe6a08d6, type: 3}
+  playerScoreClip: {fileID: 8300000, guid: 0f6d46764339da34d8976a2165a257af, type: 3}
+  aiScoreClip: {fileID: 8300000, guid: 35f24af7b1bb2ed429204ff0f9ba5920, type: 3}
+--- !u!4 &223241198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223241195}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.13741, y: 0.23044, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &507239287
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +401,7 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.7660377, g: 0.5098501, b: 0.23559266, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -447,6 +511,7 @@ MonoBehaviour:
   scoreText: {fileID: 1731543512}
   playerScore: 0
   aiScore: 0
+  paddleShrinkPerStreak: 0.1
 --- !u!50 &590040431
 Rigidbody2D:
   serializedVersion: 5
@@ -681,7 +746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &870235348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,13 +754,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870235347}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d976f55b1237061458fb5b175f2c15f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPaddle
   speed: 10
   yBoundary: 4.5
+  ballController: {fileID: 590040430}
 --- !u!61 &870235350
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -835,7 +901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &902705805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,6 +916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPaddle
   speed: 10
   yBoundary: 4.5
+  ballController: {fileID: 590040430}
 --- !u!50 &902705806
 Rigidbody2D:
   serializedVersion: 5
@@ -1645,7 +1712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1955640915
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1717,3 +1784,4 @@ SceneRoots:
   - {fileID: 902705809}
   - {fileID: 870235352}
   - {fileID: 1776978169}
+  - {fileID: 223241198}
